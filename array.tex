@@ -1,0 +1,75 @@
+An array is a ordered set of primitive types, structures functions and array.
+\subsubsection{Declaring Arrays}
+An array is declared using keyword "Array" followed by arrow brackets to specify explicitly the type of contained elements. The following declarations are samples. Each declaration should end with a semicolon.
+\begin{lstlisting}[caption={array\_declaration.csm}, captionpos=b]
+struct Foo {
+    int a;
+    int b;
+};
+Array<int> a1;
+Array<String> a2;
+Array<Foo> a3;
+Array<Array<int>> a4;
+Array<Func<int,int>> a5;
+\end{lstlisting}
+
+\subsubsection{Defining Arrays}
+An array is defined either explicitly using "new" keyword followed by "Array" keyword followed by arrow brackets ($<>$) indicating the type and followed by square bracket ($[\ \ ]$) containing the element separated by the colons. Every definition of an array ends with a semicolon. The following definition is an example.
+\begin{lstlisting}[caption={array\_definition.csm}, captionpos=b]
+
+Array<int> a1;
+Array<int> a2;
+a1 = new Array<int> [1, 2, 3];
+a2 = new Array<int> [];
+
+\end{lstlisting}
+Note that the length of the array will be inferred exactly as the number of elements in the definition. For example, the example above has a length of 3 because there are three integers in the array. For empty array, the length is 0.
+\par A shortcut of defining an array is also provided, which is just the square brackets containing the elements separated by columns ending with a semicolon. For example, the following definition is equivalent to the array definition in the last example.
+\begin{lstlisting}[caption={array\_definition\_short.csm}, captionpos=b]
+
+Array<int> a1;
+Array<int> a2;
+a1 = [1, 2, 3];
+a2 = [];
+
+
+\end{lstlisting}
+
+The definition and declaration can be combined in one line.
+\begin{lstlisting}[caption={array\_definition\_oneline.csm}, captionpos=b]
+
+Array<int> a1 = [1, 2, 3];
+Array<int> a2 = new Array<int> [];
+
+\end{lstlisting}
+
+\subsubsection{Array Member Functions}
+The member functions are built-in functions that is not over-writable by users and can be called by an array. The function itself is just like a member in a struct. Suppose that we have already defined a struct T and an array of Array$<T>$ whose name is a, all the member functions are shown in the following table.
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+Member function & Equivalent Func object & Functionality                               \\ \hline
+a.len           & Func$<$int$>$          & return the number of elements in the array  \\ \hline
+a.copy          & Func$<$Array$<$T$>$$>$ & return a deep copy of the array             \\ \hline
+a.reverse       & Func$<$Array$<$T$>$$>$ & return the reverse of the array             \\ \hline
+a.insert\_front & Func$<$T,void$>$       & in-place insertion before the first element \\ \hline
+a.insert\_back  & Func$<$T,void$>$       & in-place insertion after the last element   \\ \hline
+a.insert        & Func$<$int,T,void$>$   & in-place insertion before nth element       \\ \hline
+\end{tabular}
+\end{table}
+\par Calling these functions is just like calling a normal function, which is passing input in declared order in a pair of brackets right after the function. For example, a.insert\_front(m) is equivalent to a.insert(0,m). Note that if the array is declared but not defined, calling member functions will still pass the compilation but running the code will throw a runtime error.
+
+\subsubsection{Indexing Arrays}
+\par By providing the index, which is an integer between 0 (included) and the length of the array (not included), within a pair of square brackets right after the name of the array, the user can access any element in this array. The index $n$ means $(n+1)th$ element. Any out-of-bound indexing or indexing in an empty array will pass the compilation but lead to a runtime error. For example, the following function computes the sum of an integer array.
+\begin{lstlisting}[caption={array\_sum.csm}, captionpos=b]
+
+Func<Array<int>, int> sum = new Func (Array<int> a) -> int 
+{
+    int res = 0;
+    for (int i = 0; i < a.len(); i++)
+        res = res + a[i];
+    return res;
+}
+
+\end{lstlisting}

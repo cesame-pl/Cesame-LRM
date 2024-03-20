@@ -1,0 +1,534 @@
+\documentclass[11pt,A4]{article}
+
+\usepackage{listings}
+\usepackage[table]{xcolor}
+\usepackage{xcolor}
+\usepackage[margin=1.2in]{geometry}
+\usepackage{parskip}
+\usepackage{threeparttable}
+\usepackage{graphicx}
+\usepackage{amsmath,amsfonts,amsthm}
+\usepackage{booktabs}
+
+
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}} 
+\newcommand{\todo}[1]{\textcolor{red}{#1}}
+
+\definecolor{gray}{RGB}{211, 211, 211}
+
+\lstset{
+    language=C,
+    backgroundcolor=\color{gray!25!white},
+    showstringspaces=false,
+    breaklines=true,
+    basicstyle=\ttfamily,
+    xleftmargin=10mm,  
+    xrightmargin=10mm,
+    framexleftmargin=10mm,
+    framexrightmargin=10mm,
+}
+
+\title{
+    \normalfont \LARGE
+    \horrule{1pt} \\[0.4cm] 
+    \huge The Cesame Programming Language \\
+    \horrule{1pt} \\[0.6cm] 
+    \textsc{Programming Language Reference Manual} \\ [25pt]
+    % \Large IDK...Feel free to change (•‿•) \\[0.5cm]
+}
+
+\author{
+   \begin{tabular}{ll}
+       Language Guru: & Qian Zhao (qz2512) \\[5pt]
+       System Architect: & Teng Jiang (tj2488) \\[5pt]
+       Tester: & Yunjia Wang (yw4105)
+   \end{tabular}
+}
+\date{}
+
+\begin{document}
+
+    \maketitle
+    \thispagestyle{plain}
+    \newpage
+    
+    \tableofcontents
+    
+    \newpage
+    \section{Introduction}
+    Your introduction content goes here.
+
+    \newpage
+    \section{Lexical Elements}
+    
+        \subsection{Identifiers}
+        Content for identifiers.
+        
+        \subsection{Keywords}
+        Content for keywords.
+        
+        \subsection{Constants}
+            \subsubsection{Integer Constants}
+            Content for integer constants.
+            
+            \subsubsection{Character Constants}
+            Content for character constants.
+        
+            \subsubsection{Real Number Constants}
+            Content for real number constants.
+            
+            \subsubsection{String Constants}
+            Content for string constants.
+        
+        \subsection{Separators}
+        Content for separators.
+        
+        \subsection{Operators}
+        Content for operators.
+        
+        \subsection{White Space}
+        Content for white space.
+        
+        \subsection{Comment}
+        Content for comment.
+
+    \newpage
+    \section{Data Types}
+        \subsection{Primitive Data Types}
+            \subsubsection{bool}
+            Content for bool.
+            
+            \subsubsection{int}
+            Content for int.
+            
+            \subsubsection{float}
+            Content for float.
+            
+            \subsubsection{char}
+            Content for char.
+            
+        \subsection{Strings}
+        Content for strings.
+        
+        \subsection{Enumerations}
+        Content for enumerations.
+        
+        \subsection{Unions}
+        Content for unions.
+        
+        \subsection{Structures}
+        Content for structures.
+        
+        \subsection{Arrays}
+        \input{array.tex}
+
+    \newpage
+    \section{Expressions and Operators}
+        
+        \subsection{Operands}
+        Operands are the data items or entities upon which operators act within expressions. They can be variables, constants, or the results of sub-expressions. Operands are the values or variables involved in an operation. For example, in the expression a + b, a and b are operands.
+        
+        \subsection{Unary Operators}
+        Unary operators are operators in programming that operate on a single operand, meaning they work with only one operand or value. \\
+        \todo{TODO: do we still have pointers? remove the Dereference if not.}
+        \begin{table}[h]
+            \centering
+            \setlength{\arrayrulewidth}{0.3mm}
+            \renewcommand{\arraystretch}{1.2}
+            \rowcolors{2}{gray!25}{white}
+            \begin{tabular}{cccc}
+                \toprule
+                Symbol & Operator & Description & Example \\
+                \midrule
+                ++ & Increment & Increases the value of a variable by 1 & 
+                \begin{tabular}[t]{@{}c@{}} 
+                    \verb|int x = 5;| \\
+                    \verb|x++;|
+                \end{tabular} \\
+                \arrayrulecolor{gray!50}\cmidrule(lr){1-4}\arrayrulecolor{black}
+                -- & Decrement & Decreases the value of a variable by 1 & 
+                \begin{tabular}[t]{@{}c@{}} 
+                    \verb|int y = 10;| \\
+                    \verb|y--;|
+                \end{tabular} \\
+                \arrayrulecolor{gray!50}\cmidrule(lr){1-4}\arrayrulecolor{black}
+                + & Unary plus & Indicates a positive value & 
+                \begin{tabular}[t]{@{}c@{}} 
+                    \verb|int z = -5;| \\
+                    \verb|int positiveZ = +z;|
+                \end{tabular} \\
+                \arrayrulecolor{gray!50}\cmidrule(lr){1-4}\arrayrulecolor{black}
+                - & Unary minus & Negates the value of an expression & 
+                \begin{tabular}[t]{@{}c@{}} 
+                    \verb|int a = 8;| \\
+                    \verb|int b = -a;|
+                \end{tabular} \\
+                \arrayrulecolor{gray!50}\cmidrule(lr){1-4}\arrayrulecolor{black}
+                ! & Logical NOT & Performs logical negation & 
+                \begin{tabular}[t]{@{}c@{}} 
+                    \verb|int isTrue = 0;| \\
+                    \verb|int isFalse = !isTrue;|
+                \end{tabular} \\
+                \arrayrulecolor{gray!50}\cmidrule(lr){1-4}\arrayrulecolor{black}
+                \& & Address-of & Returns the memory address of a variable & 
+                \begin{tabular}[t]{@{}c@{}} 
+                    \verb|int var = 42;| \\
+                    \verb|int* ptr = &var;|
+                \end{tabular} \\
+                \arrayrulecolor{gray!50}\cmidrule(lr){1-4}\arrayrulecolor{black}
+                * & Dereference & Accesses the value pointed to by a pointer & 
+                \begin{tabular}[t]{@{}c@{}} 
+                    \verb|int var = 42;| \\
+                    \verb|int* ptr = &var;| \\
+                    \verb|int value = *ptr;|
+                \end{tabular} \\
+                \bottomrule
+            \end{tabular}
+        \end{table}  \\ 
+    
+        \subsection{Binary Operators}
+        Binary operators are operators in programming that require two operands to perform an operation. 
+        
+            \subsubsection{Arithmetic Operators} 
+            Perform mathematical calculations on numeric values
+            \begin{table}[h]
+                \centering
+                \setlength{\arrayrulewidth}{0.3mm}
+                \renewcommand{\arraystretch}{1.2}
+                \rowcolors{2}{gray!25}{white}
+                \begin{tabular}{cccc}
+                    \toprule
+                    Symbol & Operator & Description & Example \\
+                    \midrule
+                    + & Addition & Adds two operands & \verb|int sum = 5 + 3;| \\
+                    \arrayrulecolor{gray!50}\cmidrule(lr){1-4}\arrayrulecolor{black}
+                    - & Subtraction & Subtracts second operand from the first & \verb|int difference = 7 - 2;| \\
+                    \arrayrulecolor{gray!50}\cmidrule(lr){1-4}\arrayrulecolor{black}
+                    * & Multiplication & Multiplies two operands & \verb|int product = 4 * 6;| \\
+                    \arrayrulecolor{gray!50}\cmidrule(lr){1-4}\arrayrulecolor{black}
+                    / & Division & Divides first operand by the second & \verb|float quotient = 10.0 / 2.0;| \\
+                    \arrayrulecolor{gray!50}\cmidrule(lr){1-4}\arrayrulecolor{black}
+                    \% & Modulus & Returns the remainder of the division & \verb|int remainder = 10 % 3;| \\
+                    \bottomrule
+                \end{tabular}
+            \end{table}  \\ 
+            
+            \subsubsection{Relational Operators}
+            Compare two values and determine the relationship between them
+            \begin{table}[h]
+                \centering
+                \setlength{\arrayrulewidth}{0.3mm}
+                \renewcommand{\arraystretch}{1.2}
+                \rowcolors{2}{gray!25}{white}
+                \begin{tabular}{ccc}
+                    \toprule
+                    Symbol & Operator & Description \\
+                    \midrule
+                    == & Equal to & Checks if two operands are equal \\
+                    \arrayrulecolor{gray!50}\cmidrule(lr){1-3}\arrayrulecolor{black}
+                    != & Not equal to & Checks if two operands are not equal \\
+                    \arrayrulecolor{gray!50}\cmidrule(lr){1-3}\arrayrulecolor{black}
+                    > & Greater than & Checks if first operand is greater than second \\
+                    \arrayrulecolor{gray!50}\cmidrule(lr){1-3}\arrayrulecolor{black}
+                    < & Less than & Checks if first operand is less than second \\
+                    \arrayrulecolor{gray!50}\cmidrule(lr){1-3}\arrayrulecolor{black}
+                    >= & Greater than or equal to & Checks if first operand is greater than or equal to second \\
+                    \arrayrulecolor{gray!50}\cmidrule(lr){1-3}\arrayrulecolor{black}
+                    <= & Less than or equal to & Checks if first operand is less than or equal to second \\
+                    \bottomrule
+                \end{tabular}
+            \end{table}  \\ 
+                        
+            \subsubsection{Logical Operators} 
+            perform logical operations on boolean values
+            \begin{table}[h]
+                \centering
+                \setlength{\arrayrulewidth}{0.3mm}
+                \renewcommand{\arraystretch}{1.2}
+                \rowcolors{2}{gray!25}{white}
+                \begin{tabular}{cccc}
+                    \toprule
+                    Symbol & Operator & Description & Example \\
+                    \midrule
+                    \&\& & Logical AND & Returns true if both operands are true & \verb|a && b| \\
+                    \arrayrulecolor{gray!50}\cmidrule(lr){1-4}\arrayrulecolor{black}
+                    || & Logical OR & Returns true if either operand is true & \verb|x| || \verb|y| \\
+                    \arrayrulecolor{gray!50}\cmidrule(lr){1-4}\arrayrulecolor{black}
+                    ! & Logical NOT & Inverts the truth value of its operand & \verb|!a| \\
+                    \bottomrule
+                \end{tabular}
+            \end{table}  \\ 
+            
+            \subsubsection{Bitwise Operators}
+            Perform operations at the bit level
+            \begin{table}[h]
+                \centering
+                \setlength{\arrayrulewidth}{0.3mm}
+                \renewcommand{\arraystretch}{1.2}
+                \rowcolors{2}{gray!25}{white}
+                \begin{tabular}{cccc}
+                    \toprule
+                    Symbol & Operator & Description & Example \\
+                    \midrule
+                    \& & Bitwise AND & Performs bitwise AND on each pair of bits & \verb|a & b| \\
+                    \arrayrulecolor{gray!50}\cmidrule(lr){1-4}\arrayrulecolor{black}
+                    | & Bitwise OR & Performs bitwise OR on each pair of bits & \verb|x| | \verb|y| \\
+                    \arrayrulecolor{gray!50}\cmidrule(lr){1-4}\arrayrulecolor{black}
+                    $\wedge$ & Bitwise XOR & Performs bitwise XOR on each pair of bits & \verb|p ^ q| \\
+                    \arrayrulecolor{gray!50}\cmidrule(lr){1-4}\arrayrulecolor{black}
+                    $\sim$ & Bitwise NOT & Inverts all the bits & \verb|~a;| \\
+                    \arrayrulecolor{gray!50}\cmidrule(lr){1-4}\arrayrulecolor{black}
+                    << & Left shift & Shifts bits to the left & \verb|x << 2| \\
+                    \arrayrulecolor{gray!50}\cmidrule(lr){1-4}\arrayrulecolor{black}
+                    >> & Right shift & Shifts bits to the right & \verb|y >> 3| \\
+                    \bottomrule
+                \end{tabular}
+            \end{table}  \\ 
+            
+            \subsubsection{Assignment Operators}
+            Assign values to variables
+            \begin{table}[h]
+                \centering
+                \setlength{\arrayrulewidth}{0.3mm}
+                \renewcommand{\arraystretch}{1.2}
+                \rowcolors{2}{gray!25}{white}
+                \begin{tabular}{ccc}
+                    \toprule
+                    Symbol & Operator & Example \\
+                    \midrule
+                    = & Assignment & \verb|int x = 5;| \\
+                    \arrayrulecolor{gray!50}\cmidrule(lr){1-3}\arrayrulecolor{black}
+                    += & Addition assignment & \verb|x += 3;| \\
+                    \arrayrulecolor{gray!50}\cmidrule(lr){1-3}\arrayrulecolor{black}
+                    -= & Subtraction assignment & \verb|x -= 2;| \\
+                    \arrayrulecolor{gray!50}\cmidrule(lr){1-3}\arrayrulecolor{black}
+                    *= & Multiplication assignment & \verb|x *= 4;| \\
+                    \arrayrulecolor{gray!50}\cmidrule(lr){1-3}\arrayrulecolor{black}
+                    /= & Division assignment & \verb|x /= 2;| \\
+                    \arrayrulecolor{gray!50}\cmidrule(lr){1-3}\arrayrulecolor{black}
+                    \%= & Modulus assignment & \verb|x \% = 3;| \\
+                    \arrayrulecolor{gray!50}\cmidrule(lr){1-3}\arrayrulecolor{black}
+                    <<= & Left shift assignment & \verb|x <<= 2;| \\
+                    \arrayrulecolor{gray!50}\cmidrule(lr){1-3}\arrayrulecolor{black}
+                    >>= & Right shift assignment & \verb|x >>= 3;| \\
+                    \arrayrulecolor{gray!50}\cmidrule(lr){1-3}\arrayrulecolor{black}
+                    \&= & Bitwise AND assignment & \verb|x \&= y;| \\
+                    \arrayrulecolor{gray!50}\cmidrule(lr){1-3}\arrayrulecolor{black}
+                    |= & Bitwise OR assignment & \verb|x |= y;| \\
+                    \arrayrulecolor{gray!50}\cmidrule(lr){1-3}\arrayrulecolor{black}
+                    $\wedge$= & Bitwise XOR assignment & \verb|x ^= y;| \\
+                    \bottomrule
+                \end{tabular}
+            \end{table}
+
+        \subsection{Ternary Operators}
+        \begin{lstlisting}
+        condition ? expression1 : expression2;
+        \end{lstlisting}
+        The condition is a boolean expression that results in either true or false. If the condition is 
+        \begin{itemize}
+            \item \textbf{true}: expression1 is executed
+            \item \textbf{false}: expression2 is executed
+        \end{itemize}
+        
+        \subsection{Operator Precedence and Associativity}
+        \todo{TODO: Content for operator precedence and associativity.}
+
+        \subsection{Expressions}
+        An expression is a combination of values, variables, operators, and function calls that evaluates to a single value. It can be as simple as a single variable or value, or it can be complex, involving multiple operations. \\
+        \todo{TODO: revisit the syntax once finalized.}
+
+        Expressions may include:
+        \begin{itemize}
+            \item \textbf{Literals}: Constants such as numbers, characters, or strings.
+                \begin{itemize}
+                    \item \texttt{int num = 10;}
+                    \item \texttt{char ch = 'A';}
+                    \item \texttt{char str[] = "Hello";}
+                \end{itemize}
+                
+            \item \textbf{Variables}: Named storage locations that hold values.
+                \begin{itemize}
+                    \item \texttt{int a = 5;}
+                    \item \texttt{float b = 3.14;}
+                    \item \texttt{char ch = 'B';}
+                \end{itemize}
+                
+            \item \textbf{Operators}: Symbols representing computations such as addition, subtraction, division, etc.
+                \begin{itemize}
+                    \item \texttt{int sum = 5 + 3;} 
+                    \item \texttt{int diff = 7 - 2;}
+                    \item \texttt{float div = 10.0 / 2.0;}
+                \end{itemize}
+                
+            \item \textbf{Function Calls}: Invocations of functions that return values.
+                \begin{itemize}
+                    \item \texttt{int minVal = min(10, 20);}
+                    \item \texttt{int absValue = abs(-5);}
+                    \item \texttt{float sqrtValue = sqrt(25.0);}
+                    
+                \end{itemize}
+        \end{itemize}
+
+    \newpage
+    \section{Statements} 
+        \todo{TODO: revisit the syntax once finalized.}
+        \subsection{Blocks}
+        A block statement is a group of possibly empty statements enclosed in curly braces. Blocks serve several important purposes including grouping statements, scoping and variable lifetime, conditional execution, and code isolation.
+        \begin{lstlisting}
+int main() {
+    // Block begins
+    {
+        int a = 5;
+        printf("Value of a: %d\n", a);
+    }
+    // Block ends
+
+    return 0;
+}
+        \end{lstlisting}
+        
+        \subsection{The Empty Statements}
+        An empty statement does not do anything and is merely a semicolon alone. Mostly, an empty statement is used as the body of a loop statement. It is also used to follow a label that would otherwise be the last statement in a block. 
+        \begin{lstlisting}
+        for (int i = 0; i < 10; i++)
+            ;
+        \end{lstlisting}
+        
+        \subsection{Labeled Statement}
+        Labels are identifiers followed by a colon, used to mark a position within the code. These labeled positions can be targeted by control flow statements such as `goto`, `break`, and `continue`. A labeled statement is a statement followed by a label.\\ \\
+        Here's the general syntax for a labeled statement:
+        \begin{lstlisting}
+        label_name: statement
+        \end{lstlisting}
+        
+        \subsection{Expression Statements}
+        An expression statement is a statement that consists of an expression. Expression statements are only useful for their side effects, such as modifying variables, calling functions, or performing input/output operations.
+        \begin{lstlisting}
+// Function call is an expression statement
+printf("Hello, world!\n");
+        \end{lstlisting}
+
+        \subsection{Declaration statements}
+        A declaration statement introduces a new identifier (variable or function name) to the program. It specifies the type of the identifier and optionally initializes it with a value.
+        \begin{lstlisting}
+int x; // Declaration of variable x of type int
+        \end{lstlisting}
+
+        \subsection{Assignment statements}
+        An assignment statement assigns a value to an already declared variable.
+        \begin{lstlisting}
+x = 10; // Assignment of the value 10 to the variable x
+int y = x + 5;  // Declaration and assignment combined
+        \end{lstlisting}
+        
+        \subsection{The \texttt{if} Statement}
+        The \texttt{if} statement is a flow control statement used for executing a block of code conditionally.
+        \begin{itemize}
+            \item \textbf{\texttt{if} Statement}
+            \begin{lstlisting}
+if (condition) {
+   // code to be executed if the condition is true
+}
+            \end{lstlisting}
+            
+            \item \textbf{\texttt{if-else} Statement}
+            \begin{lstlisting}
+if (condition) {
+    // code executed when the condition is true
+} else {
+    // code executed when the condition is false
+}
+            \end{lstlisting}
+
+            \item \textbf{\texttt{if-else-if} Ladder}
+            \begin{lstlisting}
+if (condition1) {
+    // code executed when  condition1 is true
+} else if (condition2) { 
+    // code executed when condition1 is false and condition2 is true
+} else {
+    // code executed when both condition1 and condition2 are false
+}
+            \end{lstlisting}
+        \end{itemize}
+        
+        \subsection{The \texttt{switch} Statement}
+        \todo{TODO: do we need switch?}
+        
+        \subsection{The \texttt{while} Statement}
+        The \texttt{while} statement is a control flow statement that repeatedly executes a block of code as long as a specified condition is true.
+        \begin{lstlisting}
+while (condition) {
+    // Code block to be executed repeatedly
+}
+        \end{lstlisting}
+        
+        \subsection{The \texttt{do} Statement}
+        \todo{TODO: \texttt{do} we need do?}
+        
+        \subsection{The \texttt{for} Statement}
+        The \texttt{for} statement is a versatile control flow statement used for iterative execution. It allows you to execute a block of code repeatedly, with precise control over the iteration process. 
+        \begin{lstlisting}
+for (initialization; condition; step) {
+    // Code block to be executed repeatedly
+}
+        \end{lstlisting}
+        
+        \subsection{The \texttt{goto} Statement}
+        The \texttt{goto} statement is a control flow statement that allows you to transfer program control to a labeled statement within the same function.
+        \begin{lstlisting}
+goto label;
+        \end{lstlisting}
+    
+        \subsection{The \texttt{break} Statement}
+        the \texttt{break} statement is a control flow statement used to terminate the execution of a loop or switch statement prematurely.
+        \begin{lstlisting}
+break;
+        \end{lstlisting}
+        
+        \subsection{The \texttt{continue} Statement}
+        The \texttt{continue} statement is a control flow statement used to skip the current iteration of a loop and proceed to the next iteration. 
+        \begin{lstlisting}
+continue;
+        \end{lstlisting}
+        
+        \subsection{The \texttt{return} Statement}
+        The \texttt{return} statement is used to terminate the execution of a function and return a value to the calling code.
+        \begin{lstlisting}
+return <expression>;
+        \end{lstlisting}
+        
+        \subsection{The \texttt{typedef} Statement}
+        The \texttt{typedef} statement is used to create new data type names (aliases) for existing data types, making code more readable and manageable.
+        \begin{lstlisting}
+typedef <existing_data_type> <new_data_type>;
+        \end{lstlisting}
+
+    \newpage
+    \section{Functions}
+        \subsection{Function Declaration}
+        Functions are one of the mo
+        Content for function declarations.
+        
+        \subsection{Function Definitions}
+        Content for function definitions.
+        
+        \subsection{Calling Functions}
+        Content for calling functions.
+        
+        \subsection{Function Parameters}
+        Content for function parameters.
+        
+        \subsection{Higher-Order Functions}
+        Content for higher-order functions.
+
+    \newpage
+    \section{Sample Program}
+    Content for sample program.
+
+    \newpage
+    \section{References}
+    Content for reference.
+    
+\end{document}

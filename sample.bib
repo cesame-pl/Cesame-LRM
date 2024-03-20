@@ -1,0 +1,79 @@
+
+@INPROCEEDINGS{gray2007data,
+  author={Gray, J. and Bosworth, A. and Lyaman, A. and Pirahesh, H.},
+  booktitle={Proceedings of the Twelfth International Conference on Data Engineering}, 
+  title={Data cube: a relational aggregation operator generalizing GROUP-BY, CROSS-TAB, and SUB-TOTALS}, 
+  year={1996},
+  volume={},
+  number={},
+  pages={152-159},
+  doi={10.1109/ICDE.1996.492099}}
+
+@article{DBLP:journals/corr/abs-2105-03814,
+  author       = {Juan G{\'{o}}mez{-}Luna and
+                  Izzat El Hajj and
+                  Ivan Fernandez and
+                  Christina Giannoula and
+                  Geraldo F. Oliveira and
+                  Onur Mutlu},
+  title        = {Benchmarking a New Paradigm: An Experimental Analysis of a Real Processing-in-Memory
+                  Architecture},
+  journal      = {CoRR},
+  volume       = {abs/2105.03814},
+  year         = {2021},
+  url          = {https://arxiv.org/abs/2105.03814},
+  eprinttype    = {arXiv},
+  eprint       = {2105.03814},
+  timestamp    = {Fri, 14 May 2021 12:13:30 +0200},
+  biburl       = {https://dblp.org/rec/journals/corr/abs-2105-03814.bib},
+  bibsource    = {dblp computer science bibliography, https://dblp.org}
+}
+
+@inproceedings{EfficientCube,
+author = {Harinarayan, Venky and Rajaraman, Anand and Ullman, Jeffrey D.},
+title = {Implementing Data Cubes Efficiently},
+year = {1996},
+isbn = {0897917944},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/233269.233333},
+doi = {10.1145/233269.233333},
+abstract = {Decision support applications involve complex queries on very large databases. Since response times should be small, query optimization is critical. Users typically view the data as multidimensional data cubes. Each cell of the data cube is a view consisting of an aggregation of interest, like total sales. The values of many of these cells are dependent on the values of other cells in the data cube. A common and powerful query optimization technique is to materialize some or all of these cells rather than compute them from raw data each time. Commercial systems differ mainly in their approach to materializing the data cube. In this paper, we investigate the issue of which cells (views) to materialize when it is too expensive to materialize all views. A lattice framework is used to express dependencies among views. We present greedy algorithms that work off this lattice and determine a good set of views to materialize. The greedy algorithm performs within a small constant factor of optimal under a variety of models. We then consider the most common case of the hypercube lattice and examine the choice of materialized views for hypercubes in detail, giving some good tradeoffs between the space used and the average time to answer a query.},
+booktitle = {Proceedings of the 1996 ACM SIGMOD International Conference on Management of Data},
+pages = {205–216},
+numpages = {12},
+location = {Montreal, Quebec, Canada},
+series = {SIGMOD '96}
+}
+
+
+@article{pimJoin,
+author = {Lim, Chaemin and Lee, Suhyun and Choi, Jinwoo and Lee, Jounghoo and Park, Seongyeon and Kim, Hanjun and Lee, Jinho and Kim, Youngsok},
+title = {Design and Analysis of a Processing-in-DIMM Join Algorithm: A Case Study with UPMEM DIMMs},
+year = {2023},
+issue_date = {June 2023},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+volume = {1},
+number = {2},
+url = {https://doi.org/10.1145/3589258},
+doi = {10.1145/3589258},
+abstract = {Modern dual in-line memory modules (DIMMs) support processing-in-memory (PIM) by implementing in-DIMM processors (IDPs) located near memory banks. PIM can greatly accelerate in-memory join, whose performance is frequently bounded by main-memory accesses, by offloading the operations of join from host central processing units (CPUs) to the IDPs. As real PIM hardware has not been available until very recently, the prior PIM-assisted join algorithms have relied on PIM hardware simulators which assume fast shared memory between the IDPs and fast inter-IDP communication; however, on commodity PIM-enabled DIMMs, the IDPs do not share memory and demand the CPUs to mediate inter-IDP communication. Such discrepancies in the architectural characteristics make the prior studies incompatible with the DIMMs. Thus, to exploit the high potential of PIM on commodity PIM-enabled DIMMs, we need a new join algorithm designed and optimized for the DIMMs and their architectural characteristics.In this paper, we design and analyze Processing-In-DIMM Join (PID-Join), a fast in-memory join algorithm which exploits UPMEM DIMMs, currently the only publicly-available PIM-enabled DIMMs. The DIMMs impose several key challenges on efficient acceleration of join including the shared-nothing nature and limited compute capabilities of the IDPs, the lack of hardware support for fast inter-IDP communication, and the slow IDP-wise data transfers between the IDPs and the main memory. PID-Join overcomes the challenges by prototyping and evaluating hash, sort-merge, and nested-loop algorithms optimized for the IDPs, enabling fast inter-IDP communication using host CPU cache streaming and vector instructions, and facilitating fast rank-wise data transfers between the IDPs and the main memory. Our evaluation using a real system equipped with eight UPMEM DIMMs and 1,024 IDPs shows that PID-Join greatly improves the performance of in-memory join over various CPU-based in-memory join algorithms.},
+journal = {Proc. ACM Manag. Data},
+month = {jun},
+articleno = {113},
+numpages = {27},
+keywords = {processing-in-memory, processing-in-DIMM, in-memory join}
+}
+
+@ARTICLE{SparseP,
+  author={Gómez-Luna, Juan and Hajj, Izzat El and Fernandez, Ivan and Giannoula, Christina and Oliveira, Geraldo F. and Mutlu, Onur},
+  journal={IEEE Access}, 
+  title={Benchmarking a New Paradigm: Experimental Analysis and Characterization of a Real Processing-in-Memory System}, 
+  year={2022},
+  volume={10},
+  number={},
+  pages={52565-52608},
+  doi={10.1109/ACCESS.2022.3174101}}
+
+

@@ -97,11 +97,14 @@
         \end{itemize}
         
         \subsection{Keywords}
+        \todo{Fill Functions keywords in}
         \begin{center}
-            \begin{tabular}{ c c c c c c c c}
-            bool & int & float & char & String & struct & Array \\
-            true & false \\ 
-            if & else & for & while & goto & break & continue & return \\  
+            \begin{tabular}{ c c c c c c c c }
+            true & false \\
+            new & delete \\ 
+            void & bool & int & float & char & String & struct & Array \\
+            if & else & for & while & goto & break & continue & return \\
+            printf \\ 
             \end{tabular}
         \end{center}
         
@@ -119,11 +122,11 @@
         \begin{itemize}
             \item Line comments
                 \begin{lstlisting}
-// line comments 
+// line comments
                 \end{lstlisting}
             \item General comments
                 \begin{lstlisting}
-/* General comments */ 
+/* General comments */
                 \end{lstlisting}
         \end{itemize}
 
@@ -131,7 +134,7 @@
     \section{Data Types}
         \subsection{Primitive Data Types}
             \subsubsection{bool}
-            \todo{TODO: do we have bool?}
+            \texttt{bool} can be either \texttt{true} or \texttt{false}. The logical operators can be applied to evaluate bool results.
             
             \subsubsection{int}
              \texttt{int} represents whole numbers, both positive and negative, without any fractional or decimal part. \texttt{int} occupies 4 bytes (32 bits) of memory, so its range is from -2,147,483,648 to 2,147,483,647.
@@ -174,7 +177,7 @@
                     \verb|x++;|
                 \end{tabular} \\
                 \arrayrulecolor{gray!50}\cmidrule(lr){1-4}\arrayrulecolor{black}
-                -- & Decrement & Decreases the value of a variable by 1 & 
+                - - & Decrement & Decreases the value of a variable by 1 & 
                 \begin{tabular}[t]{@{}c@{}} 
                     \verb|int y = 10;| \\
                     \verb|y--;|
@@ -345,12 +348,9 @@
             \item \textbf{true}: expression1 is executed
             \item \textbf{false}: expression2 is executed
         \end{itemize}
-        
-        
 
         \subsection{Expressions}
         An expression is a combination of values, variables, operators, and function calls that evaluates to a single value. It can be as simple as a single variable or value, or it can be complex, involving multiple operations. \\
-        \todo{TODO: revisit the syntax once finalized.}
 
         Expressions may include:
         \begin{itemize}
@@ -358,7 +358,7 @@
                 \begin{itemize}
                     \item \texttt{int num = 10;}
                     \item \texttt{char ch = 'A';}
-                    \item \texttt{char str[] = "Hello";}
+                    \item \texttt{String s = "Hello";}
                 \end{itemize}
                 
             \item \textbf{Variables}: Named storage locations that hold values.
@@ -380,7 +380,6 @@
                     \item \texttt{int minVal = min(10, 20);}
                     \item \texttt{int absValue = abs(-5);}
                     \item \texttt{float sqrtValue = sqrt(25.0);}
-                    
                 \end{itemize}
         \end{itemize}
 
@@ -408,7 +407,7 @@
         \subsection{Blocks}
         A block statement is a group of possibly empty statements enclosed in curly braces. Blocks serve several important purposes including grouping statements, scoping and variable lifetime, conditional execution, and code isolation.
         \begin{lstlisting}
-Func main() -> int {
+Func print_val() -> int {
     // Block begins
     {
         int a = 5;
@@ -567,21 +566,77 @@ An anonymous function is defined using the following syntax.
 (String s)->int { return 42; }
 \end{lstlisting}
 
-There are 2 ways to define a function: Using the "new" keyword we provide just like what we do with another non-primitive type, or using the "function" keyword we provide.
-Define an anonymous
-Define a named function: We can assign an unnamed function to it, or use the syntactic sugar we provided.
-Do we allow assigning a named function to a named function? (reference cnt += 1?)
-We also provide a syntactic sugar that. Here, the type of function f can be inferred, from the type of the anonymous function.
+There are 3 ways to define a function: 
+
+Firstly, by using the "new" keyword we provide just like what we do with another non-primitive type. Notice that because the type is going to be able to be inferred from the definition, we can just use "new Func" instead of "new Func<...>", because the type is specified later in the body of the definition. This is the first kind of type inference allowed in functions.
+
+\begin{lstlisting}
+Func<int, int> inc;
+inc = new Func (int i)-> int { return i + 1; };
+\end{lstlisting}
+
+
+If you declare and define a function together, the input and output types can also be inferred.
+
+\begin{lstlisting}
+Func inc = new Func (int i)-> int { return i + 1; };
+\end{lstlisting}
+
+
+
+
+Secondly, by using the "function" keyword (a syntactic sugar) we provide, you can declare and define a function together, similar to the syntax in C.
+\begin{lstlisting}
+function inc (int i)-> int { return i + 1; };
+Func<int, int> inc (int i)-> int { return i + 1; };
+\end{lstlisting}
+
+Thirdly, you can define a function with a defined function, using "=", with LHS being the undefined function and RHS being a defined function. Notice that here "=" is definition, not assignment.
+\begin{lstlisting}
+/* Function declared, but not defined */
+Func<int, int> inc, dec;
+
+function another_dec (int i)-> int { return i - 1; }
+
+/* inc is defined with a lambda function */
+inc = (int i)->int { return i + 1 }; 
+
+/* dec is defined with a named function another_dec */
+dec = another_dec;
+
+
+\end{lstlisting}
+
+
+
+% Define an anonymous
+% Define a named function: We can assign an unnamed function to it, or use the syntactic sugar we provided.
+% Do we allow assigning a named function to a named function? (reference cnt += 1?)
+% We also provide a syntactic sugar that. Here, the type of function f can be inferred, from the type of the anonymous function.
 
         
         
-        \subsection{Calling Functions}
+\subsection{Calling Functions}
 Calling a function or in the sense of first-class functions evaluating a function, has a similar syntax with C.
 \begin{lstlisting}
 Func inc = new Func (int i)->int { return i + 1; };
 int a = inc(a);
 \end{lstlisting}
-        
+
+\subsection{Assign Functions}
+Lastly, a defined function (named or anonymous) can be assigned to a defined named function.
+
+\begin{lstlisting}
+Func inc = new Func (int i)->int { return i + 1; };
+Func another_inc = new Func (int i)->int { return i + 1; };
+
+/* assign a named function to inc */
+inc = another_inc;
+
+/* assign a lambda function to inc */
+inc = (int i)->int { return i + 1; };
+
+\end{lstlisting}
         
         % \subsection{Function Parameters}
         % Content for function parameters.
@@ -596,5 +651,8 @@ int a = inc(a);
     \newpage
     \section{References}
     Content for reference.
+
+\subsection{Assigning Functions}
+Lambda function can not be assigned to. Ass
     
 \end{document}

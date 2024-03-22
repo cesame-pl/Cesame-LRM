@@ -18,12 +18,13 @@ Array<Func<int,int>> a5;
 \end{lstlisting}
 
 \subsubsection{Defining Arrays}
-An array is defined either explicitly using the "new" keyword followed by the "Array" keyword followed by arrow brackets ($<>$) indicating the type and followed by square brackets ($[\ \ ]$) containing the element separated by the colons. Every definition of an array ends with a semicolon. The following definition is an example.
+An array is defined either explicitly using the "new" keyword followed by the "Array" keyword followed by arrow brackets ($<>$) indicating the type and followed by square brackets ($[\ \ ]$) containing the element separated by the colons. If the array is empty, the square brackets can be omitted. Every definition of an array ends with a semicolon. The following definition is an example.
 \begin{lstlisting}[caption={array\_definition.csm}, captionpos=b]
 Array<int> a1;
 Array<int> a2;
 a1 = new Array<int> [1, 2, 3];
 a2 = new Array<int> [];
+a3 = new Array<int>; // Equivalent to a2
 
 \end{lstlisting}
 Note that the length of the array will be inferred exactly as the number of elements in the definition. For example, the example above has a length of 3 because there are three integers in the array. For an empty array, the length is 0.
@@ -94,7 +95,7 @@ delete a;
 If the array is declared but not defined, delete it will still pass the compilation but will throw a runtime error.
 
 \subsubsection{Assigning Arrays}
-Assigning an array to another array is supported using the "=" operator, with the array being assigned to the left-hand side, but the effect is assigning the reference of the right-hand-side array, which means that the two variable names point to the same array. For a defined array, assigning it to another array will cause a memory leak. If a deep copy of the right-hand-side array is desired, the copy member function should be used. Here are the examples of array assignments. Note that if the array is not defined, assigning another array to it will not be a definition but an assignment by reference.
+Assigning an array to another array is supported using the "=" operator, with the array being assigned to the left-hand side, but the effect is assigning the reference of the right-hand-side array, which means that the two variable names point to the same array. If a deep copy of the right-hand-side array is desired, the copy member function should be used. Here are the examples of array assignments. Note that if the array is not defined, assigning another array to it will not be a definition but an assignment by reference.
 \begin{lstlisting}[caption={array\_delete.csm}, captionpos=b]
 Array<int> a = [1,2,3];
 Array<int> b = a; /*Allowed, assign the reference of a to b*/

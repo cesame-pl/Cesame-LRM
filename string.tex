@@ -1,0 +1,60 @@
+A string is an ordered sequence of characters. It can be created and deleted. Cesame has some member functions to help manipulate strings.
+\subsubsection{Declaring Strings}
+A string can be declared by the keyword "String" followed by a variable name ending with a semicolon. For example
+\begin{lstlisting}[caption={string\_declaration.csm}, captionpos=b]
+String s;
+\end{lstlisting}
+\subsubsection{Defining Strings}
+A string can be defined with an assignment with a variable name on the left and a sequence of ASCII characters or "escaping sequences" between a pair of normal quotation marks ending with a semicolon. Definition and declaration in one line are supported.
+\begin{lstlisting}[caption={string\_definition.csm}, captionpos=b]
+String s = "Hello Cesame!\n";
+String s1;
+s1 = "s";
+\end{lstlisting}
+\subsubsection{String Member Functions}
+Suppose that there is a defined string with variable name s, the member functions can be accessed by a dot following the variable name and called like a function. The member function is not over-writable by users. Calling the member function of an undefined string will throw a runtime error but will pass the compilation.
+\begin{table}[h]
+    \centering
+    \setlength{\arrayrulewidth}{0.3mm}
+    \renewcommand{\arraystretch}{1.2}
+    \rowcolors{2}{gray!25}{white}
+    \begin{tabular}{ccc}
+        \toprule
+        Member function & Equivalent Func object & Functionality \\
+        \midrule
+        s.len & Func$<$int$>$ & return the number of characters in the string \\
+        \arrayrulecolor{gray!50}\cmidrule(lr){1-3}\arrayrulecolor{black}
+        s.copy & Func$<$String$>$ & return a deep copy of the string \\
+        
+        \arrayrulecolor{gray!50}\cmidrule(lr){1-3}\arrayrulecolor{black}
+        s.append & Func$<$String, String$>$ & return a string with the input appended right after s \\
+        \arrayrulecolor{gray!50}\cmidrule(lr){1-3}\arrayrulecolor{black}
+        s.print & Func$<$String, void$>$ & print s \\
+        \bottomrule
+    \end{tabular}
+\end{table}  \\
+\begin{lstlisting}[caption={string\_member\_function.csm}, captionpos=b]
+String s = "Hello Cesame!\n";
+s.len(); /*14*/
+s.append(s); /*"Hello Cesame!\nHello Cesame!\n"*/
+\end{lstlisting}
+\subsubsection{Indexing Strings}
+Indexing a string will return the reference of the character in the corresponding position. The index can be done by following the variable name with a pair of square brackets and an integer n indicating the position between the square brackets with $n \in [0, len(s))$ ending with a semicolon. An out-of-bound indexing will throw a runtime error but will still pass the compilation. Note that indexing is not totally equivalent to Func$<$int,char$>$ because what it returns is the reference, which means using an index can change the original string.
+\begin{lstlisting}[caption={indexing\_string.csm}, captionpos=b]
+String s = "Bad";
+s[1] = 'e'; // s = "Bed"
+\end{lstlisting}
+\subsubsection{Assigning Strings}
+Assigning a string to another string will do the reference assignment, which means that these two variables will point to the same string. If a new string is needed, the "copy" member function is provided to make a deep copy. Assigning a string to a defined string will cause a memory leak if the defined string is not deleted.
+\begin{lstlisting}[caption={assigning\_string.csm}, captionpos=b]
+String s = "Bad";
+String s1 = s;
+String s2 = s.copy();
+s1[1] = 'e'; // s = "Bed", s1 = "Bed", s2 = "Bad"
+\end{lstlisting}
+\subsubsection{Deleting Strings}
+A string variable needs to be deleted in order to free the heap space occupied by it once being defined. It can be done by using the "delete" keyword followed by the variable name ending with a semicolon. Freeing an undefined string will cause a runtime error but will pass the compilation.
+\begin{lstlisting}[caption={deleting\_string.csm}, captionpos=b]
+String s = "Bad";
+delete s;
+\end{lstlisting}

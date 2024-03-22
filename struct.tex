@@ -1,0 +1,77 @@
+A structure is an unordered collection of different variables, including primitive types, String, structure and arrays. It can be declared, defined, and instantiated.
+\subsubsection{Declaring Structures}
+The structure is declared using the keyword "struct" followed by the structure name ending with a semicolon. The structure name should follow the naming convention of a non-primitive type, which means that the first letter should be capitalized. The following example declares a structure called Student.
+\begin{lstlisting}[caption={struct\_declaration.csm}, captionpos=b]
+    struct Student;
+\end{lstlisting}
+Note that at this time the structure is not defined and cannot be instantiated.
+\begin{lstlisting}[caption={struct\_not\_defined.csm}, captionpos=b]
+    struct Student;
+    Student a; /*Throw a runtime error*/
+\end{lstlisting}
+\subsubsection{Defining Structures}
+The structure can be defined in three ways. One is using assignment, the left-hand-side is the structure name and the right-hand-side is the "new" keyword followed by the struct keyword followed by a pair of curly brackets (\{\}) ending with a semicolon. The members in the structure should be declared within the curly brackets. For example, the structure Student can be defined as
+\begin{lstlisting}[caption={struct\_definition.csm}, captionpos=b]
+    struct Student;
+    Student = new struct {
+        String name;
+        int age;
+    };
+\end{lstlisting}
+Another abbreviated way is not to use new struct keywords on the right-hand side.
+\begin{lstlisting}[caption={struct\_definition.csm}, captionpos=b]
+    struct Student;
+    Student = {
+        String name;
+        int age;
+    };
+\end{lstlisting}
+To make the structure definition more like that of C, the assignment can also be omitted.
+\begin{lstlisting}[caption={struct\_definition.csm}, captionpos=b]
+    struct Student;
+    Student {
+        String name;
+        int age;
+    };
+\end{lstlisting}
+Putting definitions and declarations together is also allowed.
+\begin{lstlisting}[caption={struct\_definition.csm}, captionpos=b]
+    struct Student {String name; int age;};
+    struct Teacher = new struct {String name; int age};
+    struct Alien = {String from;};
+\end{lstlisting}
+
+\subsubsection{Instantiating Structures}
+Defining a structure is like defining a non-primitive type, declaring a variable of such a type is called instantiating the structure and the variable is called an instance. Instantiating the structure is just a declaration, the members of the structure are still not defined. The members of the structure can be accessed by structure name followed by a dot followed by the declared member name and the members can be defined one by one. Also, a convenient way of defining the members is provided for defining the variables after or when instantiating, which is following the instance name with a pair of curly brackets and the definitions in the declared order.
+\begin{lstlisting}[caption={struct\_instantiate.csm}, captionpos=b]
+    struct Student {String name; int age;};
+    Student stu;
+    Student stu1 {name = "Qian"; age = -5;};
+    Student stu2 {name = "Ronghui"; age = 0;};
+    stu.name = "abc";
+    stu.age = 12345;
+\end{lstlisting}
+\subsubsection{Deleting Instances of Structures}
+Using delete followed by the instance name ending with a semicolon will free the heap space of the instance. Forgetting to manually delete the instance will cause a memory leak.
+\begin{lstlisting}[caption={struct\_delete.csm}, captionpos=b]
+    struct Student {String name; int age;};
+    Student stu1 {name = "Qian"; age = -5;};
+    delete stu1;
+\end{lstlisting}
+\subsubsection{Assigning Instances of Structures}
+Instances of structures supports the assignment operator, with the reference of right-hand side assigned to the right-hand side, meaning they are pointing to the same instance after the assignment. Deep copy function should be implemented manually.
+\begin{lstlisting}[caption={struct\_deep\_cpoy.csm}, captionpos=b]
+    struct Student stu {String name; int age;};
+    Func<Student, Student, void> deep_copy_stu = new Func (Student a, Student b) -> void {
+        b.name = a.name.copy();
+        b.age = a.age;
+    };
+    Student stu1 {name = "who"; age = -1;};
+    Student stu2 = stu1;
+    stu2.age = 7; /*stu1.age = 7*/
+    Student stu3;
+    deep_copy_stu(stu1, stu3);
+    stu3.age = 8; /*stu1.age = 7*/
+\end{lstlisting}
+
+

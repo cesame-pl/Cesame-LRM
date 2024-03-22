@@ -3,29 +3,54 @@
 \usepackage{listings}
 \usepackage[table]{xcolor}
 \usepackage{xcolor}
+\usepackage {color}
 \usepackage[margin=1.2in]{geometry}
 \usepackage{parskip}
 \usepackage{threeparttable}
 \usepackage{graphicx}
-\usepackage{amsmath,amsfonts,amsthm}
+\usepackage{amsmath, amsfonts, amsthm}
 \usepackage{booktabs}
-
 
 \newcommand{\horrule}[1]{\rule{\linewidth}{#1}} 
 \newcommand{\todo}[1]{\textcolor{red}{#1}}
 
 \definecolor{gray}{RGB}{211, 211, 211}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
 
-\lstset{
-    language=C,
-    backgroundcolor=\color{gray!25!white},
-    showstringspaces=false,
-    breaklines=true,
-    basicstyle=\ttfamily,
-    xleftmargin=10mm,  
-    xrightmargin=10mm,
-    framexleftmargin=10mm,
-    framexrightmargin=10mm,
+% \lstset{
+%     language=C,
+%     backgroundcolor=\color{gray!25!white},
+%     showstringspaces=false,
+%     breaklines=true,
+%     basicstyle=\ttfamily,
+%     xleftmargin=10mm,
+%     xrightmargin=10mm,
+%     framexleftmargin=10mm,
+%     framexrightmargin=10mm,
+% }
+
+\lstset{frame=tb,
+	language=c, % 使用的语言
+	aboveskip=3mm,
+	belowskip=3mm,
+	showstringspaces=false, % 仅在字符串中允许空格
+	backgroundcolor=\color{gray!25!white},   % 选择代码背景，必须加上\ usepackage {color}或\ usepackage {xcolor}
+	columns=flexible,
+	basicstyle = \ttfamily\small,
+	% frame = shadowbox,  
+	numbers=left, % 给代码添加行号，可取值none, left, right.
+	numberstyle=\small \color{gray},  % 行号的字号和颜色
+	keywordstyle=\color{blue},
+	commentstyle=\color{dkgreen}, % 设置注释格式
+	stringstyle=\color{mauve},
+	breaklines=true,   % 设置自动断行.
+	breakatwhitespace=true, % 设置是否当且仅当在空白处自动中断.
+	escapeinside=``, %逃逸字符(1左面的键)，用于显示中文
+	% frame=shadowbox, %设置边框格式
+	extendedchars=false, %解决代码跨页时，章节标题，页眉等汉字不显示的问题
+	xleftmargin=2em,xrightmargin=2em, aboveskip=1em, %设置边距
+	tabsize=4 % 将默认tab设置为4个空格
 }
 
 \title{
@@ -62,62 +87,66 @@
     \section{Lexical Elements}
     
         \subsection{Identifiers}
-        Content for identifiers.
+        Identifiers are unique names given to various program elements such as variables, functions or arrays. Here are the naming rules:
+        \begin{itemize}
+            \item Case sensitive
+            \item Begin with a letter or an underscore character
+            \item Consist of only letters, digits, or underscore
+            \item Cannot be a keyword
+            \item Cannot contain white space
+        \end{itemize}
         
         \subsection{Keywords}
-        Content for keywords.
-        
-        \subsection{Constants}
-            \subsubsection{Integer Constants}
-            Content for integer constants.
-            
-            \subsubsection{Character Constants}
-            Content for character constants.
-        
-            \subsubsection{Real Number Constants}
-            Content for real number constants.
-            
-            \subsubsection{String Constants}
-            Content for string constants.
+        \begin{center}
+            \begin{tabular}{ c c c c c c c c}
+            bool & int & float & char & String & struct & Array \\
+            true & false \\ 
+            if & else & for & while & goto & break & continue & return \\  
+            \end{tabular}
+        \end{center}
         
         \subsection{Separators}
-        Content for separators.
-        
+        A separator is used to separate tokens, including \texttt{white\_space} \texttt{( )} \texttt{\{ \}} \texttt{;} \texttt{,} \texttt{.} \texttt{:}
+
         \subsection{Operators}
-        Content for operators.
+        See the section "Expression and Operators"
         
         \subsection{White Space}
-        Content for white space.
+        White space in Cesame refers to characters that are used for formatting, such as spaces, tabs, and newline characters. White space is primarily used to enhance code readability and to separate tokens within a statement. 
         
         \subsection{Comment}
-        Content for comment.
+        Comments are non-executable lines used to document code and ignored by the compiler. There are two types of comments:
+        \begin{itemize}
+            \item Line comments
+                \begin{lstlisting}
+// line comments 
+                \end{lstlisting}
+            \item General comments
+                \begin{lstlisting}
+/* General comments */ 
+                \end{lstlisting}
+        \end{itemize}
 
     \newpage
     \section{Data Types}
         \subsection{Primitive Data Types}
             \subsubsection{bool}
-            Content for bool.
+            \todo{TODO: do we have bool?}
             
             \subsubsection{int}
-            Content for int.
+             \texttt{int} represents whole numbers, both positive and negative, without any fractional or decimal part. \texttt{int} occupies 4 bytes (32 bits) of memory, so its range is from -2,147,483,648 to 2,147,483,647.
             
             \subsubsection{float}
-            Content for float.
+            \texttt{float} is a double-precision floating point number. It uses 8 bytes (64 bits) of memory and ranges from 1.7e-308 to 1.7e+308.
             
             \subsubsection{char}
-            Content for char.
+            \input{char.tex}
             
         \subsection{Strings}
-        Content for strings.
-        
-        \subsection{Enumerations}
-        Content for enumerations.
-        
-        \subsection{Unions}
-        Content for unions.
+        \input{string.tex}
         
         \subsection{Structures}
-        Content for structures.
+        \input{struct.tex}
         
         \subsection{Arrays}
         \input{array.tex}
@@ -126,11 +155,10 @@
     \section{Expressions and Operators}
         
         \subsection{Operands}
-        Operands are the data items or entities upon which operators act within expressions. They can be variables, constants, or the results of sub-expressions. Operands are the values or variables involved in an operation. For example, in the expression a + b, a and b are operands.
+        Operands are entities upon which operators act within expressions. They can be values, variables, constants, or the results of sub-expressions. For example, in the expression a + b, a and b are operands.
         
         \subsection{Unary Operators}
         Unary operators are operators in programming that operate on a single operand, meaning they work with only one operand or value. \\
-        \todo{TODO: do we still have pointers? remove the Dereference if not.}
         \begin{table}[h]
             \centering
             \setlength{\arrayrulewidth}{0.3mm}
@@ -155,42 +183,29 @@
                 + & Unary plus & Indicates a positive value & 
                 \begin{tabular}[t]{@{}c@{}} 
                     \verb|int z = -5;| \\
-                    \verb|int positiveZ = +z;|
+                    \verb|int posZ = +z;|
                 \end{tabular} \\
                 \arrayrulecolor{gray!50}\cmidrule(lr){1-4}\arrayrulecolor{black}
                 - & Unary minus & Negates the value of an expression & 
                 \begin{tabular}[t]{@{}c@{}} 
                     \verb|int a = 8;| \\
-                    \verb|int b = -a;|
+                    \verb|int negA = -a;|
                 \end{tabular} \\
                 \arrayrulecolor{gray!50}\cmidrule(lr){1-4}\arrayrulecolor{black}
                 ! & Logical NOT & Performs logical negation & 
                 \begin{tabular}[t]{@{}c@{}} 
-                    \verb|int isTrue = 0;| \\
+                    \verb|int isTrue = 1;| \\
                     \verb|int isFalse = !isTrue;|
-                \end{tabular} \\
-                \arrayrulecolor{gray!50}\cmidrule(lr){1-4}\arrayrulecolor{black}
-                \& & Address-of & Returns the memory address of a variable & 
-                \begin{tabular}[t]{@{}c@{}} 
-                    \verb|int var = 42;| \\
-                    \verb|int* ptr = &var;|
-                \end{tabular} \\
-                \arrayrulecolor{gray!50}\cmidrule(lr){1-4}\arrayrulecolor{black}
-                * & Dereference & Accesses the value pointed to by a pointer & 
-                \begin{tabular}[t]{@{}c@{}} 
-                    \verb|int var = 42;| \\
-                    \verb|int* ptr = &var;| \\
-                    \verb|int value = *ptr;|
                 \end{tabular} \\
                 \bottomrule
             \end{tabular}
         \end{table}  \\ 
-    
+        
         \subsection{Binary Operators}
         Binary operators are operators in programming that require two operands to perform an operation. 
-        
+            \newpage
             \subsubsection{Arithmetic Operators} 
-            Perform mathematical calculations on numeric values
+            Perform mathematical calculations on numeric values.
             \begin{table}[h]
                 \centering
                 \setlength{\arrayrulewidth}{0.3mm}
@@ -200,21 +215,21 @@
                     \toprule
                     Symbol & Operator & Description & Example \\
                     \midrule
-                    + & Addition & Adds two operands & \verb|int sum = 5 + 3;| \\
+                    + & Addition & Adds two operands & \verb|int x1 = 5 + 3;| \\
                     \arrayrulecolor{gray!50}\cmidrule(lr){1-4}\arrayrulecolor{black}
-                    - & Subtraction & Subtracts second operand from the first & \verb|int difference = 7 - 2;| \\
+                    - & Subtraction & Subtracts second operand from the first & \verb|int x2 = 7 - 2;| \\
                     \arrayrulecolor{gray!50}\cmidrule(lr){1-4}\arrayrulecolor{black}
-                    * & Multiplication & Multiplies two operands & \verb|int product = 4 * 6;| \\
+                    * & Multiplication & Multiplies two operands & \verb|int x3 = 4 * 6;| \\
                     \arrayrulecolor{gray!50}\cmidrule(lr){1-4}\arrayrulecolor{black}
-                    / & Division & Divides first operand by the second & \verb|float quotient = 10.0 / 2.0;| \\
+                    / & Division & Divides first operand by the second & \verb|float x4 = 10.0 / 2.0;| \\
                     \arrayrulecolor{gray!50}\cmidrule(lr){1-4}\arrayrulecolor{black}
-                    \% & Modulus & Returns the remainder of the division & \verb|int remainder = 10 % 3;| \\
+                    \% & Modulus & Returns the remainder of the division & \verb|int x5 = 10 % 3;| \\
                     \bottomrule
                 \end{tabular}
-            \end{table}  \\ 
+            \end{table} 
             
-            \subsubsection{Relational Operators}
-            Compare two values and determine the relationship between them
+            \subsubsection{Comparison Operators}
+            Compare two values and determine the relationship between them.
             \begin{table}[h]
                 \centering
                 \setlength{\arrayrulewidth}{0.3mm}
@@ -237,10 +252,10 @@
                     <= & Less than or equal to & Checks if first operand is less than or equal to second \\
                     \bottomrule
                 \end{tabular}
-            \end{table}  \\ 
+            \end{table}  
                         
             \subsubsection{Logical Operators} 
-            perform logical operations on boolean values
+            Perform logical operations on boolean values.
             \begin{table}[h]
                 \centering
                 \setlength{\arrayrulewidth}{0.3mm}
@@ -257,10 +272,10 @@
                     ! & Logical NOT & Inverts the truth value of its operand & \verb|!a| \\
                     \bottomrule
                 \end{tabular}
-            \end{table}  \\ 
+            \end{table} 
             
             \subsubsection{Bitwise Operators}
-            Perform operations at the bit level
+            Perform operations at the bit level.
             \begin{table}[h]
                 \centering
                 \setlength{\arrayrulewidth}{0.3mm}
@@ -278,15 +293,15 @@
                     \arrayrulecolor{gray!50}\cmidrule(lr){1-4}\arrayrulecolor{black}
                     $\sim$ & Bitwise NOT & Inverts all the bits & \verb|~a;| \\
                     \arrayrulecolor{gray!50}\cmidrule(lr){1-4}\arrayrulecolor{black}
-                    << & Left shift & Shifts bits to the left & \verb|x << 2| \\
+                    $<<$ & Left shift & Shifts bits to the left & \verb|x << 2| \\
                     \arrayrulecolor{gray!50}\cmidrule(lr){1-4}\arrayrulecolor{black}
-                    >> & Right shift & Shifts bits to the right & \verb|y >> 3| \\
+                    $>>$ & Right shift & Shifts bits to the right & \verb|y >> 3| \\
                     \bottomrule
                 \end{tabular}
-            \end{table}  \\ 
+            \end{table} 
             
             \subsubsection{Assignment Operators}
-            Assign values to variables
+            Assign values to variables.
             \begin{table}[h]
                 \centering
                 \setlength{\arrayrulewidth}{0.3mm}
@@ -314,7 +329,7 @@
                     \arrayrulecolor{gray!50}\cmidrule(lr){1-3}\arrayrulecolor{black}
                     \&= & Bitwise AND assignment & \verb|x \&= y;| \\
                     \arrayrulecolor{gray!50}\cmidrule(lr){1-3}\arrayrulecolor{black}
-                    |= & Bitwise OR assignment & \verb|x |= y;| \\
+                    |= & Bitwise OR assignment & \verb|x| |= \verb|y;| \\
                     \arrayrulecolor{gray!50}\cmidrule(lr){1-3}\arrayrulecolor{black}
                     $\wedge$= & Bitwise XOR assignment & \verb|x ^= y;| \\
                     \bottomrule
@@ -331,8 +346,7 @@
             \item \textbf{false}: expression2 is executed
         \end{itemize}
         
-        \subsection{Operator Precedence and Associativity}
-        \todo{TODO: Content for operator precedence and associativity.}
+        
 
         \subsection{Expressions}
         An expression is a combination of values, variables, operators, and function calls that evaluates to a single value. It can be as simple as a single variable or value, or it can be complex, involving multiple operations. \\
@@ -370,13 +384,31 @@
                 \end{itemize}
         \end{itemize}
 
+        \subsection{Operator Precedence and Associativity}
+        The operators are grouped according to the rules of precedence when an expression contains multiple operators. The following list shows types of expressions presented in order of highest precedence first. For the operators of the same precedence, its associativity is left to right unless stated otherwise.
+        \begin{enumerate}
+            \item Array subscription, function calls, and membership accesses
+            \item Unary operators. When multiple unary operators are consecutive, the later ones are nested in the earlier ones: !-a means !(-a)
+            \item Multiplication, division, and modular expressions
+            \item Addition and subtraction expressions
+            \item Bitwise shifting expressions
+            \item >=, <=, >, < expressions
+            \item ==, != expressions
+            \item Bitwise AND expressions
+            \item Bitwise XOR expressions
+            \item Bitwise OR expressions
+            \item Logical AND expressions
+            \item Logical OR expressions
+            \item Ternary expressions
+            \item Assignment expressions. Multiple assignment statements are evaluated from right to left. 
+        \end{enumerate}
+
     \newpage
-    \section{Statements} 
-        \todo{TODO: revisit the syntax once finalized.}
+    \section{Statements}
         \subsection{Blocks}
         A block statement is a group of possibly empty statements enclosed in curly braces. Blocks serve several important purposes including grouping statements, scoping and variable lifetime, conditional execution, and code isolation.
         \begin{lstlisting}
-int main() {
+Func main() -> int {
     // Block begins
     {
         int a = 5;
@@ -453,9 +485,6 @@ if (condition1) {
             \end{lstlisting}
         \end{itemize}
         
-        \subsection{The \texttt{switch} Statement}
-        \todo{TODO: do we need switch?}
-        
         \subsection{The \texttt{while} Statement}
         The \texttt{while} statement is a control flow statement that repeatedly executes a block of code as long as a specified condition is true.
         \begin{lstlisting}
@@ -463,9 +492,6 @@ while (condition) {
     // Code block to be executed repeatedly
 }
         \end{lstlisting}
-        
-        \subsection{The \texttt{do} Statement}
-        \todo{TODO: \texttt{do} we need do?}
         
         \subsection{The \texttt{for} Statement}
         The \texttt{for} statement is a versatile control flow statement used for iterative execution. It allows you to execute a block of code repeatedly, with precise control over the iteration process. 
@@ -498,30 +524,70 @@ continue;
         \begin{lstlisting}
 return <expression>;
         \end{lstlisting}
-        
-        \subsection{The \texttt{typedef} Statement}
-        The \texttt{typedef} statement is used to create new data type names (aliases) for existing data types, making code more readable and manageable.
-        \begin{lstlisting}
-typedef <existing_data_type> <new_data_type>;
-        \end{lstlisting}
 
     \newpage
     \section{Functions}
+        Functions are considered "first-class citizens" in Cesame, which means that a function can be assigned to variables, passed as arguments to other functions, and returned from other functions. Just like other non-primitive types in Cesame, we can declare and define a function object. However, Cesame employs a different syntax for function definition compared to C, reflecting its unique design principles.
+
         \subsection{Function Declaration}
-        Functions are one of the mo
-        Content for function declarations.
+            Functions in Cesame accept zero or more parameters as inputs and return zero or one output. A named function is characterized by the function name and the types of its inputs and output. An anonymous function is only characterized by the types of its inputs and output.
+
+
+The types of inputs and output are specified in the bracket $<>$ followed by "Func", and separated with ",". There has to be at least one element in the bracket. The last element should be either a type specifying the output type, or the void keyword indicating that we output type. "void" keywords that are not the last element are ignored.
+
+        \begin{lstlisting}
+/* f1 takes in 2 integers and returns an integer. */
+Func<int, int, int> f1;
+
+/* f2_1 takes in nothing and returns an integer. */
+Func<int> f2_1; 
+
+/* void ignored, equivalent with f2_1 */
+Func<void, int> f2_2;
+
+/* f3 takes in an integer and returns nothing */
+Func<int, void> f3; 
+
+/* Functions can both be inputs and outputs and also can take in and return non-primitive types. */
+Func<Func<String, Array<int>>, Func<String>> f4;
+        \end{lstlisting}
         
         \subsection{Function Definitions}
-        Content for function definitions.
+
+An anonymous function is defined using the following syntax.
+
+\begin{lstlisting}
+/* An anonymous function that increments an integer */
+(int x)->int { return x + 1 }; 
+
+/* An anonymous function prints a string but does not return anything */
+(String s)->void { s.print(); }
+
+/* An anonymous function that does not take in anything, just returns 42 */
+(String s)->int { return 42; }
+\end{lstlisting}
+
+There are 2 ways to define a function: Using the "new" keyword we provide just like what we do with another non-primitive type, or using the "function" keyword we provide.
+Define an anonymous
+Define a named function: We can assign an unnamed function to it, or use the syntactic sugar we provided.
+Do we allow assigning a named function to a named function? (reference cnt += 1?)
+We also provide a syntactic sugar that. Here, the type of function f can be inferred, from the type of the anonymous function.
+
+        
         
         \subsection{Calling Functions}
-        Content for calling functions.
+Calling a function or in the sense of first-class functions evaluating a function, has a similar syntax with C.
+\begin{lstlisting}
+Func inc = new Func (int i)->int { return i + 1; };
+int a = inc(a);
+\end{lstlisting}
         
-        \subsection{Function Parameters}
-        Content for function parameters.
         
-        \subsection{Higher-Order Functions}
-        Content for higher-order functions.
+        % \subsection{Function Parameters}
+        % Content for function parameters.
+        
+        % \subsection{Higher-Order Functions}
+        % Content for higher-order functions.
 
     \newpage
     \section{Sample Program}

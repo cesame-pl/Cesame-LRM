@@ -1,0 +1,8 @@
+A character is a single printable ASCII character. It can be assigned and defined using a ASCII character or "escape sequences", such as \textbackslash n between a pair of single quotation marks. The supported escape sequences are the same as that of C. For the convenience of calculation, assigning a character variable to or defining it with a 1-byte unsigned integer is also supported and it is equivalent to the character at the corresponding position in ASCII table. Characters also supports "+" and "-" operators and they will behave as if 1-byte unsigned integers. In the memory the character will take one byte and stored as an unsigned integer. The followings are valid definitions, assignments and operations of characters.
+\begin{lstlisting}[caption={char\_definition.csm}, captionpos=b]
+char a = 'a';
+char b = 'b';
+char n = '\n';
+b = a + 1;
+b = 65; // b = 'A'
+\end{lstlisting}
